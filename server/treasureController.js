@@ -10,5 +10,20 @@ module.exports = {
     return res.status(200).send(userTreasure);
   },
 
+  addUserTreasure: async (req, res) => {
+      const { treasureURL } = req.body;
+      const { id } = req.session.user
+
+      db = req.app.get('db');
+      const userTreasure = await db.add_user_treasure(treasureURL, id);
+      return res.status(200).send(userTreasure);
+  },
+
+  getAllTreasure: async (req, res) => {
+    db = req.app.get('db');
+
+    const allTreasure = await db.get_all_treasure();
+    return res.status(200).send(allTreasure);
+  }
 
 };
